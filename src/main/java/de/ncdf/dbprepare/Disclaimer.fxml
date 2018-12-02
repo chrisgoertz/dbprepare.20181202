@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="428.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ncdf.dbprepare.DisclaimerController">
+   <children>
+      <ImageView layoutX="237.0" layoutY="68.0">
+         <image>
+            <Image url="@gplv3-127x51.png" />
+         </image>
+      </ImageView>
+      <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="71.0" layoutY="204.0" pannable="true" prefViewportHeight="200.0" prefViewportWidth="200.0" AnchorPane.leftAnchor="71.0" AnchorPane.rightAnchor="69.0">
+         <content>
+            <TextArea fx:id="tfDisclaimer" editable="false" layoutX="200.0" layoutY="127.0" wrapText="true" />
+         </content>
+      </ScrollPane>
+      <Label layoutX="247.0" layoutY="32.0" text="Zeiterfassung" />
+   </children>
+</AnchorPane>
