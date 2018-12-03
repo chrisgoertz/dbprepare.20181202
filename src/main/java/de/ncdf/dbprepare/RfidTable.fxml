@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+
+<ScrollPane fitToHeight="true" fitToWidth="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="534.0" prefWidth="782.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ncdf.dbprepare.RfidTableController">
+   <content>
+      <TableView fx:id="rfidTable" editable="true" minHeight="-Infinity" minWidth="-Infinity" tableMenuButtonVisible="true">
+        <columns>
+          <TableColumn fx:id="columnRDID" prefWidth="75.0" text="RFID" />
+          <TableColumn fx:id="columnStatus" prefWidth="75.0" text="Status" />
+            <TableColumn fx:id="columnZeitpunkt" prefWidth="75.0" text="Zeitpunkt" />
+        </columns>
+      </TableView>
+   </content>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</ScrollPane>

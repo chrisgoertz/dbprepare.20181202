@@ -128,7 +128,6 @@ public class LocalPreferences {
 		Connection con = null;
 		Statement stmt = null;
 		try {
-			System.out.println("get connection");
 			con = DriverManager.getConnection(url);
 			stmt = con.createStatement();
 			ResultSet result;

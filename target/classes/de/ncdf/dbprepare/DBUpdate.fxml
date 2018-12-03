@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ncdf.dbprepare.DBUpdateController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label fx:id="lblDb1" text="Versionen-Datenbank" GridPane.halignment="RIGHT">
+         <GridPane.margin>
+            <Insets right="15.0" />
+         </GridPane.margin>
+      </Label>
+      <Label fx:id="lblDb2" text="Stempelzeiten-Datenbank" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets right="15.0" />
+         </GridPane.margin>
+      </Label>
+      <Label fx:id="lblDb3" text="Teilnehmer-Datenbank" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets right="15.0" />
+         </GridPane.margin>
+      </Label>
+      <Button fx:id="btnDb1" mnemonicParsing="false" onAction="#btnDb1Action" text="action 1" GridPane.columnIndex="1" />
+      <Button fx:id="btnDb2" mnemonicParsing="false" onAction="#btnDb2Action" text="action 2" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Button fx:id="btnDb3" mnemonicParsing="false" onAction="#btnDb3Action" text="action 3" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label fx:id="lblDb4" text="Datenbank 4" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets right="15.0" />
+         </GridPane.margin>
+      </Label>
+      <Label fx:id="lblDb5" text="Datenbank 5" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets right="15.0" />
+         </GridPane.margin>
+      </Label>
+      <Label fx:id="lblDb6" text="Datenbank 6" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets right="15.0" />
+         </GridPane.margin>
+      </Label>
+      <Button fx:id="btnDb4" mnemonicParsing="false" onAction="#btnDb4Action" text="action 4" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Button fx:id="btnDb5" mnemonicParsing="false" onAction="#btnDb5Action" text="action 5" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Button fx:id="btnDb6" mnemonicParsing="false" onAction="#btnDb6Action" text="action 6" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+   </children>
+</GridPane>
