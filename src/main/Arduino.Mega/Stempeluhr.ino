@@ -49,8 +49,8 @@ LiquidCrystal lcd(LCD_RS,LCD_EN,LCD_D4,LCD_D5,LCD_D6,LCD_D7);
 
 byte mac_addr[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 IPAddress server_addr(192,168,100,19);  // IP of the MySQL *server* here
-char user[] = "stempeluhr";              // MySQL user login username
-char password[] = "stempel1";        // MySQL user login password
+char user[] = "username";              // MySQL user login username
+char password[] = "password";        // MySQL user login password
 EthernetClient client;
 MySQL_Connection conn((Client *)&client);
 
