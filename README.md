@@ -9,6 +9,8 @@ openSource time clock
  - optional 16x4 LCD
  - optional GLCD
  
- # Database: MYSQL
+ # Database: 
+ MYSQL or MariaDb
  
- # Frontend: JavaFX Gui-application
+ # Frontend: 
+ JavaFX Gui-application
