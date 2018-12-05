@@ -8,6 +8,7 @@ openSource time clock
  - RFID-Reader
  - optional 16x4 LCD
  - optional GLCD
+ source code located under src/main/Arduino.Mega
  
  # Database: 
  MYSQL or MariaDb
