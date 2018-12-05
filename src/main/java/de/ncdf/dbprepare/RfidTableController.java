@@ -2,13 +2,17 @@ package de.ncdf.dbprepare;
 
 
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Observable;
 import java.util.ResourceBundle;
 
 import de.ncdf.dbconnections.StampDB;
 import de.ncdf.models.RFIDTag;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -32,7 +36,11 @@ public class RfidTableController {
 
     @FXML
     private TableColumn<RFIDTag, String> columnZeitpunkt;
-
+    @FXML
+    private DatePicker dpVon;
+    @FXML
+    private DatePicker dpBis;
+    
     @FXML
     void initialize() {
         assert rfidTable != null : "fx:id=\"rfidTable\" was not injected: check your FXML file 'RfidTable.fxml'.";
@@ -56,5 +64,13 @@ public class RfidTableController {
     	ObservableList<RFIDTag> tagList = sd.getAll();
     	rfidTable.setItems(tagList);
     	
+    }
+    @FXML
+    private void rangeModified(ActionEvent e) {
+    	StampDB sd = new StampDB();
+    	LocalDate fromDate = dpVon.getValue() != null ? dpVon.getValue() : LocalDate.now();
+    	LocalDate toDate = dpBis.getValue() != null ? dpBis.getValue() : LocalDate.now().plusDays(1);
+    	ObservableList<RFIDTag> tagList = sd.getRange(fromDate, toDate);
+    	rfidTable.setItems(tagList);
     }
 }

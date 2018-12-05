@@ -20,7 +20,7 @@ public class GuiController {
 	private VBox pref = null;
 	private AnchorPane discl = null;
 	private GridPane upDb = null;
-	private ScrollPane rfidUebersicht = null;
+	private VBox rfidUebersicht = null;
 	
 	 @FXML
     private BorderPane mainBorderPane;

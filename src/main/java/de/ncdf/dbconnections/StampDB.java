@@ -1,11 +1,13 @@
 package de.ncdf.dbconnections;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import de.ncdf.models.RFIDTag;
@@ -105,6 +107,38 @@ public class StampDB {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.err.printf("failed to fetch * from %s\n",this.tablename);
+		}
+		return results;
+	}
+	
+	public ObservableList<RFIDTag> getRange(LocalDate from, LocalDate to){
+		if(null == from || null == to) {
+			System.err.println("nullpointer not allowed");
+			return null;
+		}
+		ObservableList<RFIDTag> results = FXCollections.observableArrayList();
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM `"+this.databasename+"`.`"+this.tablename+"` "
+				+ "WHERE timestmp >= ? "
+				+ "AND timestmp <= ?;";
+		try {
+			con = DriverManager.getConnection("jdbc:mariadb://"+lp.getHost()+":"+lp.getPort()+"/"+this.databasename+"?user="+lp.getUsern()+"&password="+lp.getUserp());
+			stmt = con.prepareStatement(sql);
+			//stmt.setString(1, from.toString());
+			//stmt.setString(2, to.toString());
+			stmt.setDate(1, Date.valueOf(from));
+			stmt.setDate(2, Date.valueOf(to));
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				results.add(new RFIDTag(rs.getInt("event_id"),rs.getString("rfid"),rs.getString("status"),rs.getString("timestmp")));
+				
+			}
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.printf("failed to fetch range : %s -> %s\n",from.toString() ,to.toString());
 		}
 		return results;
 	}

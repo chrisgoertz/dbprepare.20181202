@@ -98,6 +98,10 @@ public class LocalPreferences {
 	 * put preferences to local db
 	 */
 	public void save() {
+		if(countRows() <= 0) {
+			insertFirst();
+			return;
+		}
 		String url = "jdbc:sqlite:preferences.db";
 		String sql = "UPDATE preferences set host=?, port=?, usern=?, userp=? where id=1;";
 		Connection con = null;
@@ -117,6 +121,57 @@ public class LocalPreferences {
 			e.printStackTrace();
 		}
 			
+	}
+	/**
+	 * inserts first row to local preferences db,
+	 * if no dataset is available
+	 */
+	public void insertFirst() {
+		if(countRows() >= 1) {
+			System.err.println("failed to create first dataset\n dataset already exists");
+			return;
+		}
+		System.out.println("inserting first dataset");
+		String url = "jdbc:sqlite:preferences.db";
+		String sql = "INSERT INTO preferences (id, host, port, usern, userp) values (?,?,?,?,?);";
+		Connection con = null;
+		PreparedStatement stmt= null;
+		try {
+			con = DriverManager.getConnection(url);
+			stmt = con.prepareStatement(sql);
+			stmt.setInt(1, 1);
+			stmt.setString(2, this.host);
+			stmt.setInt(3, this.port);
+			stmt.setString(4,this.usern);
+			stmt.setString(5, this.userp);
+			stmt.executeUpdate();
+			con.close();
+		}
+		catch(SQLException e) {
+			System.err.println("save to db failed");
+			e.printStackTrace();
+		}
+			
+	}
+	private int countRows() {
+		String url = "jdbc:sqlite:preferences.db";
+		String sql = "SELECT Count(*) FROM preferences;";
+		Connection con = null;
+		Statement stmt = null;
+		int retval = -1;
+		try {
+			con = DriverManager.getConnection(url);
+			stmt = con.createStatement();
+			ResultSet result;
+			result = stmt.executeQuery(sql);
+			while(result.next()) {
+				retval = result.getInt("Count(*)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println("failed to fetch row count in local db");
+		}
+		return retval;
 	}
 	
 	/**
