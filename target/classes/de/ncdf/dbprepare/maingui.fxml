@@ -15,6 +15,7 @@
             <Menu mnemonicParsing="false" text="Datenbanken">
                <items>
                   <MenuItem fx:id="mPreferences" mnemonicParsing="false" onAction="#openPreferences" text="Einstellungen" />
+                  <MenuItem fx:id="mTeilnehmerAnlegen" mnemonicParsing="false" onAction="#openTeilnehmerAnlegen" text="Teilnehmer anlegen" />
                   <MenuItem fx:id="mUpdates" mnemonicParsing="false" onAction="#openUpdates" text="updates" />
                </items>
             </Menu>

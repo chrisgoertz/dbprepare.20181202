@@ -7,7 +7,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="428.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ncdf.dbprepare.DisclaimerController">
    <children>
-      <ImageView layoutX="237.0" layoutY="68.0">
+      <ImageView layoutX="238.0" layoutY="135.0">
          <image>
             <Image url="@gplv3-127x51.png" />
          </image>
@@ -17,6 +17,6 @@
             <TextArea fx:id="tfDisclaimer" editable="false" layoutX="200.0" layoutY="127.0" wrapText="true" />
          </content>
       </ScrollPane>
-      <Label layoutX="247.0" layoutY="32.0" text="Zeiterfassung" />
+      <Label fx:id="lblHeading" layoutX="247.0" layoutY="14.0" text="Zeiterfassung" />
    </children>
 </AnchorPane>

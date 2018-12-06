@@ -1,6 +1,7 @@
 package de.ncdf.dbprepare;
 import java.io.IOException;
 
+import de.ncdf.dbconnections.PersonenDB;
 import de.ncdf.dbconnections.StampDB;
 import de.ncdf.dbconnections.VersionDB;
 import javafx.event.ActionEvent;
@@ -21,6 +22,7 @@ public class GuiController {
 	private AnchorPane discl = null;
 	private GridPane upDb = null;
 	private VBox rfidUebersicht = null;
+	private VBox tnAnlegen = null;
 	
 	 @FXML
     private BorderPane mainBorderPane;
@@ -31,7 +33,8 @@ public class GuiController {
     private MenuItem mUpdates;
     @FXML
     private MenuItem mStempelUebersicht;
-    
+    @FXML
+    private MenuItem mTeilnehmerAnlegen;
     
 
     @FXML
@@ -51,6 +54,11 @@ public class GuiController {
     void openStempelUebersicht(ActionEvent event) {
     	mainBorderPane.setCenter(rfidUebersicht);
     }
+    @FXML
+    void openTeilnehmerAnlegen(ActionEvent event) {
+    	//TODO:resize window
+    	mainBorderPane.setCenter(tnAnlegen);
+    }
     
     @FXML
     void initialize() {
@@ -64,7 +72,9 @@ public class GuiController {
         }
         System.out.printf("Versionen: %d\n",db.getVersion("versionen"));
         StampDB sdb = new StampDB();
+        PersonenDB pdb = new PersonenDB();
     }
+    
     private void loadFXMLs() {
     	try {
     		if (null == pref) {
@@ -78,6 +88,9 @@ public class GuiController {
     		}
     		if (null == rfidUebersicht) {
     			rfidUebersicht = FXMLLoader.load(getClass().getResource("RfidTable.fxml"));
+    		}
+    		if (null == tnAnlegen) {
+    			tnAnlegen = FXMLLoader.load(getClass().getResource("TeilnehmerAnlegen.fxml"));
     		}
 			
 		} catch (IOException e) {
