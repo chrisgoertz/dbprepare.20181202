@@ -22,6 +22,7 @@ public class Person {
 	private StringProperty telefonnummer = new SimpleStringProperty();
 	private StringProperty emailadresse = new SimpleStringProperty();
 	private ObjectProperty<LocalDate> geburtstag = new SimpleObjectProperty<LocalDate>();
+	private ObjectProperty<LocalDate> eintrittsdatum = new SimpleObjectProperty<LocalDate>();
 	
 	public void setDbId(int i) {
 		this.dbId.set(i);
@@ -131,4 +132,13 @@ public class Person {
 		return this.geburtstag;
 	}
 	
+	public void setEintrittsdatum(LocalDate d) {
+		this.eintrittsdatum.set(d);
+	}
+	public LocalDate getEintrittsdatum() {
+		return this.eintrittsdatum.get();
+	}
+	public ObjectProperty<LocalDate> Eintrittsdatum(){
+		return this.eintrittsdatum;
+	}
 }

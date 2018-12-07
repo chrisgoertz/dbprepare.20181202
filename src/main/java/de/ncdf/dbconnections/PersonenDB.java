@@ -1,11 +1,19 @@
 package de.ncdf.dbconnections;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import de.ncdf.models.Person;
+
 public class PersonenDB extends DBParent{
-	private LocalPreferences lp = null;
-	private final String tablename = "personen";
-	private final String databasename = "zeiterfassung";
+	protected LocalPreferences lp = null;
+	protected final String tablename = "personen";
+	protected final String databasename = "zeiterfassung";
 	
-	private int tableversion = -1;
+	protected int tableversion = -1;
 	String createSQL = "CREATE TABLE IF NOT EXISTS `"+this.databasename+"`.`"+this.tablename+"`"
 			+ " ( `person_id` INT NOT NULL AUTO_INCREMENT , "
 			+ "`rfidString` VARCHAR(14) NOT NULL , "
@@ -61,6 +69,36 @@ public class PersonenDB extends DBParent{
 			System.out.println("case2");
 			break;
 			
+		}
+	}
+	public void insert(Person p ) {
+		Connection con = null;
+		PreparedStatement stmt = null;
+		String sql = "INSERT INTO "+this.tablename
+				+ " (rfidString, role, vorname, nachname, geschlecht, strasse, wohnort," //7
+				+ " postleitzahl, telefonnummer, emailadresse, geburtstag, eintrittsdatum)" //5
+				+ " values (?,?,?,?,?,?,?,?,?,?,?,?);";
+				
+		try {
+			con = DriverManager.getConnection("jdbc:mariadb://"+lp.getHost()+":"+lp.getPort()+"/"+this.databasename+"?user="+lp.getUsern()+"&password="+lp.getUserp());
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, p.getRfidString());
+			stmt.setString(2, p.getRole());
+			stmt.setString(3, p.getVorname());
+			stmt.setString(4, p.getNachname());
+			stmt.setString(5, p.getGeschlecht());
+			stmt.setString(6, p.getStrasse());
+			stmt.setString(7, p.getWohnort());
+			stmt.setInt(8, p.getPostleitzahl());
+			stmt.setString(9, p.getTelefonnummer());
+			stmt.setString(10, p.getEmailadresse());
+			stmt.setDate(11, Date.valueOf(p.getGeburtstag()));
+			stmt.setDate(12, Date.valueOf(p.getEintrittsdatum()));
+			stmt.execute();
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.printf("failed to insert into %s\n",this.tablename);
 		}
 	}
 	
