@@ -14,7 +14,7 @@ import de.ncdf.models.RFIDTag;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class StampDB {
+public class StampDB extends DBParent{
 	
 	private LocalPreferences lp = null;
 	private final String tablename = "stampevents";
@@ -22,12 +22,20 @@ public class StampDB {
 	private int tableversion = -1;
 	
 	public StampDB() {
+		
 		lp = new LocalPreferences();
 		lp.load();
+		
 		tableUpdate();
 		
 		
 	}
+	
+	public StampDB(String tablename, String databasename) {
+		super(tablename, databasename);
+		// TODO Auto-generated constructor stub
+	}
+
 	private void tableUpdate() {
 		VersionDB ver = new VersionDB();
 		this.tableversion = ver.getVersion(this.tablename);

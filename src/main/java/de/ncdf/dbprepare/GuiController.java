@@ -71,7 +71,7 @@ public class GuiController {
         	db.firstVersion("versionen");
         }
         System.out.printf("Versionen: %d\n",db.getVersion("versionen"));
-        StampDB sdb = new StampDB();
+        StampDB sdb = new StampDB("stampevents","zeiterfassung");
         PersonenDB pdb = new PersonenDB();
     }
     

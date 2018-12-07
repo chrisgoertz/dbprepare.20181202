@@ -4,6 +4,7 @@ public class PersonenDB extends DBParent{
 	private LocalPreferences lp = null;
 	private final String tablename = "personen";
 	private final String databasename = "zeiterfassung";
+	
 	private int tableversion = -1;
 	String createSQL = "CREATE TABLE IF NOT EXISTS `"+this.databasename+"`.`"+this.tablename+"`"
 			+ " ( `person_id` INT NOT NULL AUTO_INCREMENT , "
@@ -26,7 +27,11 @@ public class PersonenDB extends DBParent{
 		lp.load();
 		tableUpdate();
 	}
-	
+	public PersonenDB(String tablename, String databasename) {
+		super(tablename, databasename);
+		// TODO Auto-generated constructor stub
+	}
+
 	private void tableUpdate() {
 		VersionDB ver = new VersionDB();
 		this.tableversion = ver.getVersion(this.tablename);
