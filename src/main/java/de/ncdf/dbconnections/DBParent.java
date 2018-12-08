@@ -10,14 +10,20 @@ public class DBParent {
 	private LocalPreferences lp = null;
 	private  String tablename;
 	private  String databasename;
-	private int tableversion = -1;
+	//private int tableversion = -1;
 	
+	
+	/**
+	 * General purpose database-table object
+	 * @param tablename
+	 * @param databasename
+	 */
 	public DBParent(String tablename, String databasename) {
 		this.tablename = tablename;
 		this.databasename = databasename;
 		lp = new LocalPreferences();
 		lp.load();
-		isInDatabase(tablename);
+		
 	}
 	public DBParent() {
 		lp = new LocalPreferences();
@@ -25,6 +31,12 @@ public class DBParent {
 		//tableUpdate();
 	}
 	
+	
+	/**
+	 * checks if table exists in database
+	 * @param tablename
+	 * @return
+	 */
 	protected boolean isInDatabase(String tablename) {
 		boolean retval = false;
 		String sql = "show tables like '"+tablename+"';";
@@ -51,6 +63,12 @@ public class DBParent {
 		
 		return retval;
 	}
+	
+	/**
+	 * create inital version of database table in db
+	 * @param sql
+	 * @return
+	 */
 	protected int createTable(String sql) {
 		int retval = 1;
 		lp.load();

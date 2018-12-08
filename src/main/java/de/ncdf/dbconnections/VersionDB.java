@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 public class VersionDB {
 	private LocalPreferences lp = null;
-	private final int tableversion = 1;
+	//private final int tableversion = 1;
 	private String tablename = "versionen";
 	
 	

@@ -2,9 +2,7 @@ package de.ncdf.dbprepare;
 
 
 import java.net.URL;
-import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Observable;
 import java.util.ResourceBundle;
 
 import de.ncdf.dbconnections.StampDB;
