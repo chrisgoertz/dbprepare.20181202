@@ -101,14 +101,20 @@ public class StampDB extends DBParent{
 		Connection con = null;
 		Statement stmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM `"+this.databasename+"`.`"+this.tablename+";";
+		String sql = "SELECT * FROM `"+this.databasename+"`.`"+this.tablename+"`"
+				+ "left join personen "
+				+ "on `"+this.tablename+"`.rfid = personen.rfidString ;";
 		
 		try {
 			con = DriverManager.getConnection("jdbc:mariadb://"+lp.getHost()+":"+lp.getPort()+"/"+this.databasename+"?user="+lp.getUsern()+"&password="+lp.getUserp());
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sql);
 			while(rs.next()) {
-				results.add(new RFIDTag(rs.getInt("event_id"),rs.getString("rfid"),rs.getString("status"),rs.getString("timestmp")));
+				RFIDTag t = new RFIDTag(rs.getInt("event_id"),rs.getString("rfid"),rs.getString("status"),rs.getString("timestmp"));
+				if(null != rs.getString("vorname") && null != rs.getString("nachname")) {
+					t.setNameString(rs.getString("vorname")+" "+rs.getString("nachname"));
+				}
+				results.add(t);
 				
 			}
 			con.close();
@@ -129,8 +135,10 @@ public class StampDB extends DBParent{
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT * FROM `"+this.databasename+"`.`"+this.tablename+"` "
-				+ "WHERE timestmp >= ? "
-				+ "AND timestmp <= ?;";
+				+ " left join personen "
+				+ "on `"+this.tablename+"`.rfid = personen.rfidString ;"
+				+ " WHERE timestmp >= ? "
+				+ " AND timestmp <= ?;";
 		try {
 			con = DriverManager.getConnection("jdbc:mariadb://"+lp.getHost()+":"+lp.getPort()+"/"+this.databasename+"?user="+lp.getUsern()+"&password="+lp.getUserp());
 			stmt = con.prepareStatement(sql);
@@ -140,7 +148,11 @@ public class StampDB extends DBParent{
 			stmt.setDate(2, Date.valueOf(to));
 			rs = stmt.executeQuery();
 			while(rs.next()) {
-				results.add(new RFIDTag(rs.getInt("event_id"),rs.getString("rfid"),rs.getString("status"),rs.getString("timestmp")));
+				RFIDTag t = new RFIDTag(rs.getInt("event_id"),rs.getString("rfid"),rs.getString("status"),rs.getString("timestmp"));
+				if(null != rs.getString("vorname") && null != rs.getString("nachname")) {
+					t.setNameString(rs.getString("vorname")+" "+rs.getString("nachname"));
+				}
+				results.add(t);
 				
 			}
 			con.close();

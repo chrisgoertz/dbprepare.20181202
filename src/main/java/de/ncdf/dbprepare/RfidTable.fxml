@@ -35,6 +35,7 @@
             <TableView fx:id="rfidTable" editable="true" tableMenuButtonVisible="true">
               <columns>
                 <TableColumn fx:id="columnRFID" prefWidth="75.0" text="RFID" />
+                  <TableColumn fx:id="columnName" prefWidth="75.0" text="Name" />
                 <TableColumn fx:id="columnStatus" prefWidth="75.0" text="Status" />
                   <TableColumn fx:id="columnZeitpunkt" prefWidth="75.0" text="Zeitpunkt" />
               </columns>

@@ -34,6 +34,10 @@ public class RfidTableController {
 
     @FXML
     private TableColumn<RFIDTag, String> columnZeitpunkt;
+    
+    @FXML
+    private TableColumn<RFIDTag, String> columnName;
+    
     @FXML
     private DatePicker dpVon;
     @FXML
@@ -45,6 +49,7 @@ public class RfidTableController {
         assert columnRFID != null : "fx:id=\"columnRDID\" was not injected: check your FXML file 'RfidTable.fxml'.";
         assert columnStatus != null : "fx:id=\"columnStatus\" was not injected: check your FXML file 'RfidTable.fxml'.";
         assert columnZeitpunkt != null : "fx:id=\"columnZeitpunkt\" was not injected: check your FXML file 'RfidTable.fxml'.";
+        assert columnName != null : "fx:id=\"columnName\" was not injected: check your FXML file 'RfidTable.fxml'.";
         initTable();
     }
     
@@ -55,6 +60,8 @@ public class RfidTableController {
     	columnStatus.setMinWidth(40.0);
     	columnZeitpunkt.setCellValueFactory(new PropertyValueFactory<>("timeStampString"));
     	columnZeitpunkt.setMinWidth(150.0);
+    	columnName.setCellValueFactory(new PropertyValueFactory<>("nameString"));
+    	columnName.setMinWidth(150.0);
     	getStamps();
     }
     private void getStamps() {

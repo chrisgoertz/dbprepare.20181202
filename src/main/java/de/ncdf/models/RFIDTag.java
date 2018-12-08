@@ -21,6 +21,7 @@ public class RFIDTag {
 	private StringProperty tagString = new SimpleStringProperty(); 
 	private StringProperty statusString = new SimpleStringProperty();
 	private StringProperty timeStampString = new SimpleStringProperty();
+	private StringProperty nameString = new SimpleStringProperty();
 	
 	public RFIDTag() {
 		super();
@@ -75,5 +76,14 @@ public class RFIDTag {
 	public Timestamp getTimeStamp() {
 		Timestamp ts = Timestamp.valueOf(this.timeStampString.get());
 		return ts;
+	}
+	public void setNameString(String s) {
+		this.nameString.set(s);
+	}
+	public String getNameString() {
+		return this.nameString.get();
+	}
+	public StringProperty Name() {
+		return this.nameString;
 	}
 }
