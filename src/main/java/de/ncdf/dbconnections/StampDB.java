@@ -53,16 +53,16 @@ public class StampDB extends DBParent{
 		}
 		case 0:
 		{
-			System.out.println("case0");
-			System.out.printf("tableupdate further versions");
+			//execute if tableversion v0
+			//should never be true
 		}
 		case 1:
 		{
-			System.out.println("case1");
-			System.out.printf("tablev %d of table %s",this.tableversion,this.tablename);
+			//execute if tableversion v1
+			//should be the normal case after table create
 		}
 		case 2:
-			System.out.println("case2");
+			//execute if tableversion v2
 			break;
 			
 		}
