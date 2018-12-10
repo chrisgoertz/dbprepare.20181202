@@ -3,12 +3,19 @@ import java.io.IOException;
 
 import de.ncdf.dbconnections.PersonenDB;
 import de.ncdf.dbconnections.StampDB;
+import de.ncdf.dbconnections.TeilnehmerDB;
 import de.ncdf.dbconnections.VersionDB;
+import de.ncdf.models.Teilnehmer;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -23,7 +30,9 @@ public class GuiController {
 	private GridPane upDb = null;
 	private VBox rfidUebersicht = null;
 	private VBox tnAnlegen = null;
-	
+	private VBox teilnehmerUebersicht = null;
+	//FXML-Controller
+	private PersonTableController personTableController = null;
 	 @FXML
     private BorderPane mainBorderPane;
 
@@ -35,6 +44,8 @@ public class GuiController {
     private MenuItem mStempelUebersicht;
     @FXML
     private MenuItem mTeilnehmerAnlegen;
+    @FXML
+    private MenuItem mTeilnehmerAnzeigen;
     
 
     @FXML
@@ -58,6 +69,10 @@ public class GuiController {
     void openTeilnehmerAnlegen(ActionEvent event) {
     	//TODO:resize window
     	mainBorderPane.setCenter(tnAnlegen);
+    }
+    @FXML
+    void openTeilnehmerAnzeigen(ActionEvent event) {
+    	mainBorderPane.setCenter(teilnehmerUebersicht);
     }
     
     @FXML
@@ -92,10 +107,17 @@ public class GuiController {
     		if (null == tnAnlegen) {
     			tnAnlegen = FXMLLoader.load(getClass().getResource("TeilnehmerAnlegen.fxml"));
     		}
+    		if (null == teilnehmerUebersicht) {
+    			FXMLLoader loader = new FXMLLoader(getClass().getResource("SimplePersonTable.fxml"));
+    			//teilnehmerUebersicht = loader.load(getClass().getResource("SimplePersonTable.fxml"));
+    			teilnehmerUebersicht = loader.load();
+    			personTableController = loader.getController();
+    		}
 			
 		} catch (IOException e) {
 			System.err.println("loading fxml-files failed");
 			e.printStackTrace();
 		}
     }
+    
 }

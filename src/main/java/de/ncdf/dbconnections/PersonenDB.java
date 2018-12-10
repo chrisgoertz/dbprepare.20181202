@@ -53,20 +53,18 @@ public class PersonenDB extends DBParent{
 			}
 			ver.firstVersion(this.tablename);
 			this.tableversion = ver.getVersion(this.tablename);
-			System.out.printf("table: %s updated to v%d\n",this.tablename,this.tableversion);
+			
 		}
 		case 0:
 		{
-			System.out.println("case0");
-			System.out.printf("tableupdate further versions");
+			
 		}
 		case 1:
 		{
-			System.out.println("case1");
-			System.out.printf("tablev %d of table %s",this.tableversion,this.tablename);
+			
 		}
 		case 2:
-			System.out.println("case2");
+			
 			break;
 			
 		}

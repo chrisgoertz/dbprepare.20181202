@@ -1,3 +1,14 @@
-de\ncdf\dbprepare\GuiController.class
+de\ncdf\dbconnections\VersionDB.class
+de\ncdf\dbprepare\DBUpdateController.class
+de\ncdf\dbconnections\KundenDB.class
+de\ncdf\models\Person.class
 de\ncdf\dbprepare\App.class
+de\ncdf\dbconnections\DataTable.class
+de\ncdf\dbconnections\ModulDB.class
 de\ncdf\dbconnections\LocalPreferences.class
+de\ncdf\dbprepare\DBPreferencesController.class
+de\ncdf\models\RFIDTag.class
+de\ncdf\dbconnections\KursDB.class
+de\ncdf\models\Teilnehmer.class
+de\ncdf\dbconnections\PersonenDB.class
+de\ncdf\dbconnections\DBParent.class

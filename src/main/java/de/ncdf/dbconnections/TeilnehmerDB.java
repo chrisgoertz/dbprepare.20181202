@@ -4,9 +4,12 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import de.ncdf.models.Teilnehmer;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class TeilnehmerDB extends PersonenDB {
 	private static final String tablenamef = "personen";
@@ -87,5 +90,75 @@ public class TeilnehmerDB extends PersonenDB {
 			e.printStackTrace();
 			System.err.printf("failed to update %s\n",tablenamef);
 		}
+	}
+	public static ObservableList<Teilnehmer> getByName(String s) {
+		LocalPreferences lp = new LocalPreferences();
+		lp.load();
+		ObservableList<Teilnehmer> retval = FXCollections.observableArrayList();
+		Connection con = null;
+		PreparedStatement stmt = null;
+		String sql = "SELECT * FROM personen WHERE nachname LIKE ?;";
+		try {
+			con = DriverManager.getConnection("jdbc:mariadb://"+lp.getHost()+":"+lp.getPort()+"/"+databasenamef+"?user="+lp.getUsern()+"&password="+lp.getUserp());
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, s);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Teilnehmer t = new Teilnehmer();
+				t.setDbId(rs.getInt("person_id"));
+				t.setRfidString(rs.getString("rfidString"));
+				t.setRole(rs.getString("role"));
+				t.setVorname(rs.getString("vorname"));
+				t.setNachname(rs.getString("nachname"));
+				t.setGeschlecht(rs.getString("geschlecht"));
+				t.setStrasse(rs.getString("strasse"));
+				t.setWohnort(rs.getString("wohnort"));
+				t.setPostleitzahl(rs.getInt("postleitzahl"));
+				t.setTelefonnummer(rs.getString("telefonnummer"));
+				t.setEmailadresse(rs.getString("emailadresse"));
+				t.setGeburtstag(rs.getDate("geburtstag").toLocalDate());
+				t.setEintrittsdatum(rs.getDate("eintrittsdatum").toLocalDate());
+				retval.add(t);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.printf("failed to fetch person by Name -> %s",s);
+		}
+		return retval;
+	}
+	
+	public static ObservableList<Teilnehmer> getAll() {
+		LocalPreferences lp = new LocalPreferences();
+		lp.load();
+		ObservableList<Teilnehmer> retval = FXCollections.observableArrayList();
+		Connection con = null;
+		PreparedStatement stmt = null;
+		String sql = "SELECT * FROM personen ;";
+		try {
+			con = DriverManager.getConnection("jdbc:mariadb://"+lp.getHost()+":"+lp.getPort()+"/"+databasenamef+"?user="+lp.getUsern()+"&password="+lp.getUserp());
+			stmt = con.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Teilnehmer t = new Teilnehmer();
+				t.setDbId(rs.getInt("person_id"));
+				t.setRfidString(rs.getString("rfidString"));
+				t.setRole(rs.getString("role"));
+				t.setVorname(rs.getString("vorname"));
+				t.setNachname(rs.getString("nachname"));
+				t.setGeschlecht(rs.getString("geschlecht"));
+				t.setStrasse(rs.getString("strasse"));
+				t.setWohnort(rs.getString("wohnort"));
+				t.setPostleitzahl(rs.getInt("postleitzahl"));
+				t.setTelefonnummer(rs.getString("telefonnummer"));
+				t.setEmailadresse(rs.getString("emailadresse"));
+				t.setGeburtstag(rs.getDate("geburtstag").toLocalDate());
+				t.setEintrittsdatum(rs.getDate("eintrittsdatum").toLocalDate());
+				retval.add(t);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.printf("failed to fetch person by Name -> %s\n");
+		}
+		return retval;
 	}
 }

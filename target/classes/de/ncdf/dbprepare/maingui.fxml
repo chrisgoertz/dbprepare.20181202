@@ -15,7 +15,6 @@
             <Menu mnemonicParsing="false" text="Datenbanken">
                <items>
                   <MenuItem fx:id="mPreferences" mnemonicParsing="false" onAction="#openPreferences" text="Einstellungen" />
-                  <MenuItem fx:id="mTeilnehmerAnlegen" mnemonicParsing="false" onAction="#openTeilnehmerAnlegen" text="Teilnehmer anlegen" />
                   <MenuItem fx:id="mUpdates" mnemonicParsing="false" onAction="#openUpdates" text="updates" />
                </items>
             </Menu>
@@ -23,6 +22,12 @@
                <items>
                   <MenuItem fx:id="mStempelUebersicht" mnemonicParsing="false" onAction="#openStempelUebersicht" text="Uebersicht" />
                </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Personen">
+              <items>
+                  <MenuItem fx:id="mTeilnehmerAnlegen" mnemonicParsing="false" onAction="#openTeilnehmerAnlegen" text="Teilnehmer anlegen" />
+                <MenuItem fx:id="mTeilnehmerAnzeigen" mnemonicParsing="false" onAction="#openTeilnehmerAnzeigen" text="Teilnehmer anzeigen" />
+              </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
                <items>
