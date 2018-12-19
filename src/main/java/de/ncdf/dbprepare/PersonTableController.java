@@ -8,11 +8,12 @@ import de.ncdf.models.RFIDTag;
 import de.ncdf.models.Teilnehmer;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Menu;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class PersonTableController {
+public class PersonTableController implements GuiPage{
 
     @FXML
     private ResourceBundle resources;
@@ -107,9 +108,24 @@ public class PersonTableController {
     	columnRFID.setMinWidth(100.0);
     	columnID.setCellValueFactory(new PropertyValueFactory<>("dbId"));
     	columnID.setMinWidth(100.0);
-    	setData(TeilnehmerDB.getAll());
+    	
     }
     private void setData(ObservableList<Teilnehmer> t) {
     	this.teilnehmerTable.setItems(t);
     }
+	@Override
+	public void setMenu(Menu m) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void deleteSignal() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void updateSignal() {
+		// TODO Auto-generated method stub
+		setData(TeilnehmerDB.getAll());
+	}
 }

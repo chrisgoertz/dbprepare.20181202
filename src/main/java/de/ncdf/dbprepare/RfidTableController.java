@@ -11,11 +11,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Menu;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class RfidTableController {
+public class RfidTableController implements GuiPage{
 
     @FXML
     private ResourceBundle resources;
@@ -62,8 +63,9 @@ public class RfidTableController {
     	columnZeitpunkt.setMinWidth(150.0);
     	columnName.setCellValueFactory(new PropertyValueFactory<>("nameString"));
     	columnName.setMinWidth(150.0);
-    	getStamps();
+    	//getStamps();
     }
+    @Deprecated
     private void getStamps() {
     	StampDB sd = new StampDB();
     	ObservableList<RFIDTag> tagList = sd.getAll();
@@ -76,6 +78,28 @@ public class RfidTableController {
     	LocalDate fromDate = dpVon.getValue() != null ? dpVon.getValue() : LocalDate.now();
     	LocalDate toDate = dpBis.getValue() != null ? dpBis.getValue() : LocalDate.now().plusDays(1);
     	ObservableList<RFIDTag> tagList = sd.getRange(fromDate, toDate);
-    	rfidTable.setItems(tagList);
+    	setData(tagList);
     }
+    
+    private void setData(ObservableList<RFIDTag> data) {
+    	rfidTable.setItems(data);
+    }
+
+	@Override
+	public void setMenu(Menu m) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteSignal() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateSignal() {
+		setData(StampDB.getAll());
+		
+	}
 }

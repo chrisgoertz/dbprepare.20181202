@@ -7,10 +7,11 @@ import de.ncdf.dbconnections.LocalPreferences;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class DBPreferencesController
+public class DBPreferencesController implements GuiPage
 {
 	private LocalPreferences lp = new LocalPreferences();
 	
@@ -63,4 +64,22 @@ public class DBPreferencesController
     	tfPass.setText(lp.getUserp());
     	
     }
+
+	@Override
+	public void setMenu(Menu m) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteSignal() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateSignal() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -17,8 +17,8 @@ import javafx.collections.ObservableList;
 public class StampDB extends DBParent{
 	
 	private LocalPreferences lp = null;
-	private final String tablename = "stampevents";
-	private final String databasename = "zeiterfassung";
+	static final String tablename = "stampevents";
+	static final String databasename = "zeiterfassung";
 	private int tableversion = -1;
 	
 	public StampDB() {
@@ -38,18 +38,18 @@ public class StampDB extends DBParent{
 
 	private void tableUpdate() {
 		VersionDB ver = new VersionDB();
-		this.tableversion = ver.getVersion(this.tablename);
+		this.tableversion = ver.getVersion(tablename);
 		switch (this.tableversion) {
 		case -1:
 		{
-			System.out.printf("creating table: %s\n",this.tablename);
+			System.out.printf("creating table: %s\n",tablename);
 			if(0 != createTable())
 			{
 				return;
 			}
-			ver.firstVersion(this.tablename);
-			this.tableversion = ver.getVersion(this.tablename);
-			System.out.printf("table: %s updated to v%d\n",this.tablename,this.tableversion);
+			ver.firstVersion(tablename);
+			this.tableversion = ver.getVersion(tablename);
+			System.out.printf("table: %s updated to v%d\n",tablename,this.tableversion);
 		}
 		case 0:
 		{
@@ -73,10 +73,10 @@ public class StampDB extends DBParent{
 		Connection con = null;
 		Statement stmt = null;
 		
-		String sql = "CREATE TABLE IF NOT EXISTS `"+this.databasename+"`.`"+this.tablename+"` ( `event_id` INT NOT NULL AUTO_INCREMENT , `rfid` VARCHAR(13) NOT NULL , `status` VARCHAR(20) NOT NULL , `timestmp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`event_id`)) ENGINE = InnoDB;";
+		String sql = "CREATE TABLE IF NOT EXISTS `"+databasename+"`.`"+tablename+"` ( `event_id` INT NOT NULL AUTO_INCREMENT , `rfid` VARCHAR(13) NOT NULL , `status` VARCHAR(20) NOT NULL , `timestmp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`event_id`)) ENGINE = InnoDB;";
 		System.out.println(sql);
 		try {
-			con = DriverManager.getConnection("jdbc:mariadb://"+lp.getHost()+":"+lp.getPort()+"/"+this.databasename+"?user="+lp.getUsern()+"&password="+lp.getUserp());
+			con = DriverManager.getConnection("jdbc:mariadb://"+lp.getHost()+":"+lp.getPort()+"/"+databasename+"?user="+lp.getUsern()+"&password="+lp.getUserp());
 			stmt = con.createStatement();
 			stmt.execute(sql);
 			con.close();
@@ -96,17 +96,19 @@ public class StampDB extends DBParent{
 	 * !!might cause heavy load!!
 	 * @return
 	 */
-	public ObservableList<RFIDTag> getAll(){
+	public static ObservableList<RFIDTag> getAll(){
+		LocalPreferences lp = new LocalPreferences();
+		lp.load();
 		ObservableList<RFIDTag> results = FXCollections.observableArrayList();
 		Connection con = null;
 		Statement stmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM `"+this.databasename+"`.`"+this.tablename+"`"
+		String sql = "SELECT * FROM `"+databasename+"`.`"+tablename+"`"
 				+ "left join personen "
-				+ "on `"+this.tablename+"`.rfid = personen.rfidString ;";
+				+ "on `"+tablename+"`.rfid = personen.rfidString ;";
 		
 		try {
-			con = DriverManager.getConnection("jdbc:mariadb://"+lp.getHost()+":"+lp.getPort()+"/"+this.databasename+"?user="+lp.getUsern()+"&password="+lp.getUserp());
+			con = DriverManager.getConnection("jdbc:mariadb://"+lp.getHost()+":"+lp.getPort()+"/"+databasename+"?user="+lp.getUsern()+"&password="+lp.getUserp());
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sql);
 			while(rs.next()) {
@@ -120,12 +122,14 @@ public class StampDB extends DBParent{
 			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.err.printf("failed to fetch * from %s\n",this.tablename);
+			System.err.printf("failed to fetch * from %s\n",tablename);
 		}
 		return results;
 	}
 	
-	public ObservableList<RFIDTag> getRange(LocalDate from, LocalDate to){
+	public static ObservableList<RFIDTag> getRange(LocalDate from, LocalDate to){
+		LocalPreferences lp = new LocalPreferences();
+		lp.load();
 		if(null == from || null == to) {
 			System.err.println("nullpointer not allowed");
 			return null;
@@ -134,13 +138,13 @@ public class StampDB extends DBParent{
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM `"+this.databasename+"`.`"+this.tablename+"` "
+		String sql = "SELECT * FROM `"+databasename+"`.`"+tablename+"` "
 				+ " left join personen "
-				+ "on `"+this.tablename+"`.rfid = personen.rfidString ;"
+				+ "on `"+tablename+"`.rfid = personen.rfidString "
 				+ " WHERE timestmp >= ? "
 				+ " AND timestmp <= ?;";
 		try {
-			con = DriverManager.getConnection("jdbc:mariadb://"+lp.getHost()+":"+lp.getPort()+"/"+this.databasename+"?user="+lp.getUsern()+"&password="+lp.getUserp());
+			con = DriverManager.getConnection("jdbc:mariadb://"+lp.getHost()+":"+lp.getPort()+"/"+databasename+"?user="+lp.getUsern()+"&password="+lp.getUserp());
 			stmt = con.prepareStatement(sql);
 			//stmt.setString(1, from.toString());
 			//stmt.setString(2, to.toString());
@@ -163,14 +167,16 @@ public class StampDB extends DBParent{
 		return results;
 	}
 	
-	public ObservableList<RFIDTag> getByTag(String tag){
+	public static ObservableList<RFIDTag> getByTag(String tag){
+		LocalPreferences lp = new LocalPreferences();
+		lp.load();
 		ObservableList<RFIDTag> results = FXCollections.observableArrayList();
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM `"+this.databasename+"`.`"+this.tablename+"` WHERE rfid = ?;";
+		String sql = "SELECT * FROM `"+databasename+"`.`"+tablename+"` WHERE rfid = ?;";
 		try {
-			con = DriverManager.getConnection("jdbc:mariadb://"+lp.getHost()+":"+lp.getPort()+"/"+this.databasename+"?user="+lp.getUsern()+"&password="+lp.getUserp());
+			con = DriverManager.getConnection("jdbc:mariadb://"+lp.getHost()+":"+lp.getPort()+"/"+databasename+"?user="+lp.getUsern()+"&password="+lp.getUserp());
 			stmt = con.prepareStatement(sql);
 			stmt.setString(1, tag);
 			rs = stmt.executeQuery();
@@ -180,7 +186,7 @@ public class StampDB extends DBParent{
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.err.printf("failed to fetch * from %s where rfid = %s\n",this.tablename, tag);
+			System.err.printf("failed to fetch * from %s where rfid = %s\n",tablename, tag);
 		}
 		return results;
 	}

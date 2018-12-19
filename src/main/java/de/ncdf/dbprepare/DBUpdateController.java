@@ -9,8 +9,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 
-public class DBUpdateController {
+public class DBUpdateController implements GuiPage{
 
     @FXML
     private ResourceBundle resources;
@@ -127,4 +128,22 @@ public class DBUpdateController {
     	this.btnDb6.setText("update");
     	this.btnDb6.setDisable(true);
     }
+
+	@Override
+	public void setMenu(Menu m) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteSignal() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateSignal() {
+		// TODO Auto-generated method stub
+		
+	}
 }

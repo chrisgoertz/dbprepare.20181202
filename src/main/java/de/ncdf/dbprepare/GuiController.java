@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
@@ -33,6 +34,12 @@ public class GuiController {
 	private VBox teilnehmerUebersicht = null;
 	//FXML-Controller
 	private PersonTableController personTableController = null;
+	private DBPreferencesController preferencesController = null;
+	private DBUpdateController updateController = null;
+	private DisclaimerController disclaimerController = null;
+	private RfidTableController rfidTableController = null;
+	private TeilnehmerAnlegenController teilnehmerAnlegenController = null;
+	
 	 @FXML
     private BorderPane mainBorderPane;
 
@@ -46,7 +53,8 @@ public class GuiController {
     private MenuItem mTeilnehmerAnlegen;
     @FXML
     private MenuItem mTeilnehmerAnzeigen;
-    
+    @FXML
+    private Menu mAnzeige;
 
     @FXML
     void openPreferences(ActionEvent event) {
@@ -63,6 +71,7 @@ public class GuiController {
     }
     @FXML
     void openStempelUebersicht(ActionEvent event) {
+    	rfidTableController.updateSignal();
     	mainBorderPane.setCenter(rfidUebersicht);
     }
     @FXML
@@ -72,6 +81,7 @@ public class GuiController {
     }
     @FXML
     void openTeilnehmerAnzeigen(ActionEvent event) {
+    	personTableController.updateSignal();
     	mainBorderPane.setCenter(teilnehmerUebersicht);
     }
     
@@ -91,24 +101,36 @@ public class GuiController {
     }
     
     private void loadFXMLs() {
+    	FXMLLoader loader = new FXMLLoader();
     	try {
     		if (null == pref) {
-    			pref = FXMLLoader.load(getClass().getResource("DBPreferences.fxml"));
+    			loader = new FXMLLoader(getClass().getResource("DBPreferences.fxml"));
+    			pref = loader.load();
+    			preferencesController = loader.getController();
     		}
     		if (null == discl) {
-    			discl = FXMLLoader.load(getClass().getResource("Disclaimer.fxml"));
+    			loader = new FXMLLoader(getClass().getResource("Disclaimer.fxml"));
+    			discl = loader.load();
+    			disclaimerController = loader.getController();
     		}
     		if (null == upDb) {
-    			upDb = FXMLLoader.load(getClass().getResource("DBUpdate.fxml"));
+    			loader = new FXMLLoader(getClass().getResource("DBUpdate.fxml"));
+    			upDb = loader.load();
+    			updateController = loader.getController();
     		}
     		if (null == rfidUebersicht) {
-    			rfidUebersicht = FXMLLoader.load(getClass().getResource("RfidTable.fxml"));
+    			loader = new FXMLLoader(getClass().getResource("RfidTable.fxml"));
+    			rfidUebersicht = loader.load();
+    			rfidTableController = loader.getController();
     		}
     		if (null == tnAnlegen) {
-    			tnAnlegen = FXMLLoader.load(getClass().getResource("TeilnehmerAnlegen.fxml"));
+    			loader = new FXMLLoader(getClass().getResource("TeilnehmerAnlegen.fxml"));
+    			tnAnlegen = loader.load();
+    			teilnehmerAnlegenController = loader.getController();
     		}
     		if (null == teilnehmerUebersicht) {
-    			FXMLLoader loader = new FXMLLoader(getClass().getResource("SimplePersonTable.fxml"));
+    			//FXMLLoader loader = new FXMLLoader(getClass().getResource("SimplePersonTable.fxml"));
+    			loader = new FXMLLoader(getClass().getResource("SimplePersonTable.fxml"));
     			//teilnehmerUebersicht = loader.load(getClass().getResource("SimplePersonTable.fxml"));
     			teilnehmerUebersicht = loader.load();
     			personTableController = loader.getController();

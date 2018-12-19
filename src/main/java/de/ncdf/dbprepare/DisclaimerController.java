@@ -7,9 +7,10 @@ import java.util.stream.Stream;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.TextArea;
 
-public class DisclaimerController {
+public class DisclaimerController implements GuiPage{
 	private String welcome = "This software was writen by Christian Görtz in 2018\n"
 			+ "IMPORTANT! This software is still under developement!\n"
 			+ "The author of this software is not responsible for any\n"
@@ -44,4 +45,22 @@ public class DisclaimerController {
 		 
 		 return ret.toString();
 	 }
+
+	@Override
+	public void setMenu(Menu m) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteSignal() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateSignal() {
+		// TODO Auto-generated method stub
+		
+	}
 }

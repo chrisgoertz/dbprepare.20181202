@@ -14,9 +14,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Menu;
 import javafx.scene.control.TextField;
 
-public class TeilnehmerAnlegenController {
+public class TeilnehmerAnlegenController implements GuiPage{
 
 	@FXML
 	private ResourceBundle resources;
@@ -253,5 +254,23 @@ public class TeilnehmerAnlegenController {
 		//iterate over hashmap
 		//if all form fields are valid, enable save button
 		return retval;
+	}
+
+	@Override
+	public void setMenu(Menu m) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteSignal() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateSignal() {
+		// TODO Auto-generated method stub
+		
 	}
 }
