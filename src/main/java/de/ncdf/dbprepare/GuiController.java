@@ -39,6 +39,7 @@ public class GuiController {
 	private DisclaimerController disclaimerController = null;
 	private RfidTableController rfidTableController = null;
 	private TeilnehmerAnlegenController teilnehmerAnlegenController = null;
+	private GuiPage activePageController = null;
 	
 	 @FXML
     private BorderPane mainBorderPane;
@@ -55,34 +56,52 @@ public class GuiController {
     private MenuItem mTeilnehmerAnzeigen;
     @FXML
     private Menu mAnzeige;
+    @FXML
+    private MenuItem mDataUpdate;
 
     @FXML
     void openPreferences(ActionEvent event) {
+    	mDataUpdate.setDisable(true);
     	mainBorderPane.setCenter(pref);
+    	activePageController = this.preferencesController;
     	
     }
     @FXML
     void openUpdates(ActionEvent event) {
+    	mDataUpdate.setDisable(true);
     	mainBorderPane.setCenter(upDb);
+    	activePageController = this.updateController;
     }
     @FXML 
     void openDisclaimer(ActionEvent event) {
+    	mDataUpdate.setDisable(true);
     	mainBorderPane.setCenter(discl);
+    	activePageController = this.disclaimerController;
     }
     @FXML
     void openStempelUebersicht(ActionEvent event) {
-    	rfidTableController.updateSignal();
+    	mDataUpdate.setDisable(false);
+    	activePageController = this.rfidTableController;
+    	activePageController.updateSignal();
     	mainBorderPane.setCenter(rfidUebersicht);
     }
     @FXML
     void openTeilnehmerAnlegen(ActionEvent event) {
     	//TODO:resize window
+    	mDataUpdate.setDisable(true);
+    	activePageController = this.teilnehmerAnlegenController;
     	mainBorderPane.setCenter(tnAnlegen);
     }
     @FXML
     void openTeilnehmerAnzeigen(ActionEvent event) {
-    	personTableController.updateSignal();
+    	mDataUpdate.setDisable(false);
+    	activePageController = this.personTableController;
+    	activePageController.updateSignal();
     	mainBorderPane.setCenter(teilnehmerUebersicht);
+    }
+    @FXML 
+    void dataUpdate(ActionEvent event) {
+    	activePageController.updateSignal();
     }
     
     @FXML
@@ -90,6 +109,7 @@ public class GuiController {
         assert mainBorderPane != null : "fx:id=\"mainBorderPane\" was not injected: check your FXML file 'maingui.fxml'.";
         assert mPreferences != null : "fx:id=\"mPreferences\" was not injected: check your FXML file 'maingui.fxml'.";
         loadFXMLs();
+        mDataUpdate.setDisable(true);
         mainBorderPane.setCenter(discl);
         VersionDB db = new VersionDB();
         if(-1 == db.getVersion("versionen")) {

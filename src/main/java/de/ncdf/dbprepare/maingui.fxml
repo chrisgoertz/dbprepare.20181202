@@ -29,7 +29,10 @@
                 <MenuItem fx:id="mTeilnehmerAnzeigen" mnemonicParsing="false" onAction="#openTeilnehmerAnzeigen" text="Teilnehmer anzeigen" />
               </items>
             </Menu>
-            <Menu fx:id="mAnzeige" mnemonicParsing="false" text="Daten" />
+            <Menu fx:id="mAnzeige" mnemonicParsing="false" text="Daten">
+               <items>
+                  <MenuItem fx:id="mDataUpdate" mnemonicParsing="false" onAction="#dataUpdate" text="update" />
+               </items></Menu>
             <Menu mnemonicParsing="false" text="Help">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#openDisclaimer" text="About" />
