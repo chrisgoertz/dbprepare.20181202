@@ -39,6 +39,7 @@ public class StampDB extends DBParent{
 	private void tableUpdate() {
 		VersionDB ver = new VersionDB();
 		this.tableversion = ver.getVersion(tablename);
+		System.out.printf("fetching tableversion of: %s = %d",tablename,this.tableversion);
 		switch (this.tableversion) {
 		case -1:
 		{
@@ -67,7 +68,8 @@ public class StampDB extends DBParent{
 			
 		}
 	}
-	private int createTable() {
+	public static int createTable() {
+		LocalPreferences lp = new LocalPreferences();
 		int retval = 1;
 		lp.load();
 		Connection con = null;
@@ -83,10 +85,12 @@ public class StampDB extends DBParent{
 			retval = 0;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.err.printf("Failed to create table %s\n",this.tablename);
+			System.err.printf("Failed to create table %s\n",tablename);
 			retval = 2;
 			
 		}
+		VersionDB ver = new VersionDB();
+		ver.firstVersion(tablename);
 		return retval;
 	}
 	

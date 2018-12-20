@@ -114,6 +114,12 @@ public class GuiController {
         VersionDB db = new VersionDB();
         if(-1 == db.getVersion("versionen")) {
         	db.firstVersion("versionen");
+        	StampDB.createTable();
+        	db.firstVersion("stampevents");
+        	PersonenDB.createTable();
+        	db.firstVersion("personen");
+        	
+        	
         }
         System.out.printf("Versionen: %d\n",db.getVersion("versionen"));
         StampDB sdb = new StampDB("stampevents","zeiterfassung");

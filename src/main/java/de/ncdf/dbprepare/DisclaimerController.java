@@ -17,7 +17,9 @@ public class DisclaimerController implements GuiPage{
 			+ "data lose or hardware damage!\n"
 			+ "THIS SOFTWARE IS LICENSED UNDER GPL";
 			
-	private String filePath = getClass().getResource("gpl-3.0.txt").getPath().substring(1);
+	// M$ private String filePath = getClass().getResource("gpl-3.0.txt").getPath().substring(1);
+	private String filePath = getClass().getResource("gpl-3.0.txt").getPath();
+	
 	@FXML
 	private TextArea tfDisclaimer;
 	@FXML
