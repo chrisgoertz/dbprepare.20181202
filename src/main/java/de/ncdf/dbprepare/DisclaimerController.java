@@ -16,9 +16,8 @@ public class DisclaimerController implements GuiPage{
 			+ "The author of this software is not responsible for any\n"
 			+ "data lose or hardware damage!\n"
 			+ "THIS SOFTWARE IS LICENSED UNDER GPL";
-			
-	// M$ private String filePath = getClass().getResource("gpl-3.0.txt").getPath().substring(1);
-	private String filePath = getClass().getResource("gpl-3.0.txt").getPath();
+	
+	private String filePath = "unset";
 	
 	@FXML
 	private TextArea tfDisclaimer;
@@ -28,17 +27,32 @@ public class DisclaimerController implements GuiPage{
 	@FXML
 	void initialize() {
 		assert tfDisclaimer != null : "fx:id=\"tfDisclaimer\" was not injected: check your FXML file 'Disclaimer.fxml'.";
-		System.out.println(filePath);
-		tfDisclaimer.appendText(getGPL());
+		detectOs();
+		String gplString = getGPL();
+		System.out.println(gplString);
+		tfDisclaimer.appendText(gplString);
 		tfDisclaimer.home();
 		this.lblHeading.setText(welcome);
 	}
 	 
-	 private String getGPL() {
+	 private void detectOs() {
+		 String OS = System.getProperty("os.name").toLowerCase();
+		 System.out.println("OS detected: "+OS);
+		 if(OS.indexOf("win") >= 0) {
+			 filePath = getClass().getResource("gpl-3.0.txt").getPath().substring(1);			 
+		 }
+		 else {
+			 filePath = getClass().getResource("gpl-3.0.txt").getPath();
+		 }
+
+	}
+
+	private String getGPL() {
 		 StringBuilder ret = new StringBuilder();
 		 try (Stream<String> stream = Files.lines(Paths.get(filePath))) 
 		 {
 			 stream.forEach(s -> ret.append(s).append("\n"));
+			 
 			
 		} catch (IOException e) {
 			e.printStackTrace();
