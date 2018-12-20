@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -8,27 +12,28 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ncdf.dbprepare.AnwesenheitController">
    <children>
       <HBox spacing="15.0">
          <children>
-            <ToggleButton mnemonicParsing="false" text="anwesend" />
-            <ToggleButton mnemonicParsing="false" text="abwesend" />
-            <ToggleButton mnemonicParsing="false" text="verspätet" />
+            <ToggleButton fx:id="btnAnwesend" mnemonicParsing="false" onAction="#onActionAnwesend" text="anwesend" />
+            <ToggleButton fx:id="btnAbwesend" mnemonicParsing="false" onAction="#onActionAbwesend" text="abwesend" />
+            <ToggleButton fx:id="btnVerspaetet" mnemonicParsing="false" onAction="#onActionVerspaetet" text="verspätet" />
          </children>
          <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
          </padding>
       </HBox>
       <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" minHeight="1600.0">
          <content>
             <TableView tableMenuButtonVisible="true">
               <columns>
-                <TableColumn minWidth="100.0" prefWidth="150.0" text="Nachname" />
-                <TableColumn minWidth="100.0" prefWidth="150.0" text="Vorname" />
-                  <TableColumn minWidth="100.0" prefWidth="75.0" text="kommt" />
-                  <TableColumn minWidth="100.0" prefWidth="75.0" text="geht" />
-                  <TableColumn minWidth="100.0" prefWidth="150.0" text="Konto" />
+                <TableColumn fx:id="columnNachname" minWidth="100.0" prefWidth="150.0" text="Nachname" />
+                <TableColumn fx:id="columnVorname" minWidth="100.0" prefWidth="150.0" text="Vorname" />
+                  <TableColumn fx:id="columnKommt" minWidth="100.0" prefWidth="75.0" text="kommt" />
+                  <TableColumn fx:id="columnGeht" minWidth="100.0" prefWidth="75.0" text="geht" />
+                  <TableColumn fx:id="columnKonto" minWidth="100.0" prefWidth="150.0" text="Konto" />
+                  <TableColumn fx:id="columnBuchen" prefWidth="75.0" text="buchen" />
               </columns>
             </TableView>
          </content>
