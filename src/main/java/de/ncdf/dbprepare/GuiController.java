@@ -32,6 +32,7 @@ public class GuiController {
 	private VBox rfidUebersicht = null;
 	private VBox tnAnlegen = null;
 	private VBox teilnehmerUebersicht = null;
+	private VBox anwesenheit = null;
 	//FXML-Controller
 	private PersonTableController personTableController = null;
 	private DBPreferencesController preferencesController = null;
@@ -51,6 +52,8 @@ public class GuiController {
     @FXML
     private MenuItem mStempelUebersicht;
     @FXML
+    private MenuItem mAnwesenheit;
+    @FXML
     private MenuItem mTeilnehmerAnlegen;
     @FXML
     private MenuItem mTeilnehmerAnzeigen;
@@ -58,6 +61,7 @@ public class GuiController {
     private Menu mAnzeige;
     @FXML
     private MenuItem mDataUpdate;
+    
 
     @FXML
     void openPreferences(ActionEvent event) {
@@ -65,6 +69,11 @@ public class GuiController {
     	mainBorderPane.setCenter(pref);
     	activePageController = this.preferencesController;
     	
+    }
+    @FXML
+    void openAnwesenheit(ActionEvent event) {
+    	mDataUpdate.setDisable(false);
+    	mainBorderPane.setCenter(anwesenheit);
     }
     @FXML
     void openUpdates(ActionEvent event) {
@@ -161,6 +170,11 @@ public class GuiController {
     			teilnehmerUebersicht = loader.load();
     			personTableController = loader.getController();
     		}
+    		if (null == anwesenheit) {
+    			loader = new FXMLLoader(getClass().getResource("Anwesenheit.fxml"));
+    			anwesenheit = loader.load();
+    		}
+    		
 			
 		} catch (IOException e) {
 			System.err.println("loading fxml-files failed");

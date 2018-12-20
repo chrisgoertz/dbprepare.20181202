@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="mainBorderPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ncdf.dbprepare.GuiController">
+<BorderPane fx:id="mainBorderPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.ncdf.dbprepare.GuiController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
          <menus>
@@ -21,6 +18,7 @@
             <Menu mnemonicParsing="false" text="Stempeluhr">
                <items>
                   <MenuItem fx:id="mStempelUebersicht" mnemonicParsing="false" onAction="#openStempelUebersicht" text="Uebersicht" />
+                  <MenuItem fx:id="mAnwesenheit" mnemonicParsing="false" onAction="#openAnwesenheit" text="Anwesenheit" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Personen">
