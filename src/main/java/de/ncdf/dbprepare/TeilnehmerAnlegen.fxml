@@ -88,6 +88,11 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </TextField>
+            <TextField fx:id="tfRfid" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </TextField>
             <TextField fx:id="tfVorname" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="10.0" />
@@ -98,6 +103,8 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </TextField>
+            <ComboBox fx:id="cbGeschlecht" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ComboBox fx:id="cbRole" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="tfStrasse" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <GridPane.margin>
                   <Insets right="10.0" />
@@ -123,24 +130,19 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </TextField>
-            <ComboBox fx:id="cbGeschlecht" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <DatePicker fx:id="dpGeburtstag" GridPane.columnIndex="1" GridPane.rowIndex="11" />
             <DatePicker fx:id="dpEintrittsdatum" GridPane.columnIndex="1" GridPane.rowIndex="12" />
             <Label text="RFID-Tag:" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="20.0" />
                </GridPane.margin></Label>
-            <TextField fx:id="tfRfid" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </TextField>
+            
             <Label text="Role:" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets right="20.0" />
                </GridPane.margin>
             </Label>
-            <ComboBox fx:id="cbRole" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            
          </children>
       </GridPane>
       <HBox alignment="CENTER">
