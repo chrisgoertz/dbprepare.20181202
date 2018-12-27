@@ -7,7 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import de.ncdf.models.RFIDTag;
@@ -188,11 +190,57 @@ public class StampDB extends DBParent{
 				results.add(new RFIDTag(rs.getInt("event_id"),rs.getString("rfid"),rs.getString("status"),rs.getString("timestmp")));
 				
 			}
+			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.err.printf("failed to fetch * from %s where rfid = %s\n",tablename, tag);
 		}
 		return results;
+	}
+	
+	
+	/**
+	 * This is a testing function. it fills the db with dummy data
+	 * @param tag
+	 */
+	public static void insertTest() {
+		int year = LocalDate.now().getYear();
+		int month = LocalDate.now().getMonthValue();
+		int dayOfMonth = LocalDate.now().getDayOfMonth();
+		int hour_in = 7;
+		int hour_out = 14;
+		int minute_in = 0;
+		int minute_out = 45;
+		
+		LocalPreferences lp = new LocalPreferences();
+		lp.load();
+		Connection con = null;
+		PreparedStatement stmt = null;
+    	String sql = "INSERT INTO stampevents (rfid, status, timestmp) VALUES (?,?,?);";
+    	try {
+    		con = DriverManager.getConnection("jdbc:mariadb://"+lp.getHost()+":"+lp.getPort()+"/"+databasename+"?user="+lp.getUsern()+"&password="+lp.getUserp());
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, "00:11:22:33:44");
+			stmt.setString(2, "in");
+			stmt.setTimestamp(3, Timestamp.valueOf(LocalDateTime.of(year, month, dayOfMonth, hour_in, minute_in)));
+			stmt.execute();
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.printf("failed to insert into %s\n",tablename);
+		}
+    	try {
+    		con = DriverManager.getConnection("jdbc:mariadb://"+lp.getHost()+":"+lp.getPort()+"/"+databasename+"?user="+lp.getUsern()+"&password="+lp.getUserp());
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, "00:11:22:33:44");
+			stmt.setString(2, "out");
+			stmt.setTimestamp(3, Timestamp.valueOf(LocalDateTime.of(year, month, dayOfMonth, hour_out, minute_out)));
+			stmt.execute();
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.printf("failed to insert into %s\n",tablename);
+		}
 	}
 	
 	

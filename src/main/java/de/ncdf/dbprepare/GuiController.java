@@ -33,6 +33,7 @@ public class GuiController {
 	private VBox tnAnlegen = null;
 	private VBox teilnehmerUebersicht = null;
 	private VBox anwesenheit = null;
+	private AnchorPane testFunktionen = null;
 	//FXML-Controller
 	private PersonTableController personTableController = null;
 	private DBPreferencesController preferencesController = null;
@@ -41,6 +42,7 @@ public class GuiController {
 	private RfidTableController rfidTableController = null;
 	private TeilnehmerAnlegenController teilnehmerAnlegenController = null;
 	private GuiPage activePageController = null;
+	private DBfillController testFunktionenController = null;
 	
 	 @FXML
     private BorderPane mainBorderPane;
@@ -61,6 +63,9 @@ public class GuiController {
     private Menu mAnzeige;
     @FXML
     private MenuItem mDataUpdate;
+    @FXML
+    private MenuItem mTestfunktionen;
+    
     
 
     @FXML
@@ -108,10 +113,17 @@ public class GuiController {
     	activePageController.updateSignal();
     	mainBorderPane.setCenter(teilnehmerUebersicht);
     }
+    @FXML
+    void openTestfunktionen(ActionEvent event) {
+    	mDataUpdate.setDisable(true);
+    	activePageController = this.testFunktionenController;
+    	mainBorderPane.setCenter(testFunktionen);
+    }
     @FXML 
     void dataUpdate(ActionEvent event) {
     	activePageController.updateSignal();
     }
+    
     
     @FXML
     void initialize() {
@@ -173,6 +185,11 @@ public class GuiController {
     		if (null == anwesenheit) {
     			loader = new FXMLLoader(getClass().getResource("Anwesenheit.fxml"));
     			anwesenheit = loader.load();
+    		}
+    		if (null == testFunktionen) {
+    			loader = new FXMLLoader(getClass().getResource("DBfill.fxml"));
+    			testFunktionen = loader.load();
+    			testFunktionenController = loader.getController();
     		}
     		
 			
